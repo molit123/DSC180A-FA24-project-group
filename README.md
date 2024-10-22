@@ -1,0 +1,1 @@
+1. Utilizing too large of a protein region in CNNs will introduce noise which is why most models are limited by their small size, but would filters used for image data also work on graphs in this case since their connections are similar.
