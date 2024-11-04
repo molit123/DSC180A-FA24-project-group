@@ -653,7 +653,7 @@ elif regression_flag == 1:
         elif d == 2:
             partial_metrics['Dataset'] = 'Testing'
     
-        df_full_metrics = df_full_metrics.append(partial_metrics)
+        df_full_metrics = pd.concat([df_full_metrics, partial_metrics], ignore_index=True)
     
     df_gene_names = df_genes.iloc[:,:3]
     df_gene_names = df_gene_names.rename(columns={"gene_catalog_name": "ENSEMBL_ID", "abbrev": "Abbreviation",
