@@ -285,3 +285,56 @@ class GCN_classification(nn.Module):
         predicted = torch.argmax(softmax, 1)
         
         return softmax, predicted
+
+class MLP_Classification(nn.Module):
+    def __init__(self, input_size, hidden_sizes, num_classes):
+        super(MLP_Classification, self).__init__()
+        
+        self.fc1 = nn.Linear(input_size, hidden_sizes[0])
+        self.fc2 = nn.Linear(hidden_sizes[0], hidden_sizes[1])
+        self.fc3 = nn.Linear(hidden_sizes[1], num_classes)
+        
+        self.dropout = nn.Dropout(0.5)
+        
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        
+        x = F.relu(self.fc2(x))
+        x = self.dropout(x)
+        
+        output = self.fc3(x)
+        
+        return output
+    
+    def loss(self, predictions, labels):
+        criterion = nn.CrossEntropyLoss()
+        loss = criterion(predictions, labels)
+        return loss
+    
+class MLP_Regression(nn.Module):
+    def __init__(self, input_size, hidden_sizes, output_size=1):
+        super(MLP_Regression, self).__init__()
+        
+        self.fc1 = nn.Linear(input_size, hidden_sizes[0])
+        self.fc2 = nn.Linear(hidden_sizes[0], hidden_sizes[1])
+        self.fc3 = nn.Linear(hidden_sizes[1], output_size)
+        
+        self.dropout = nn.Dropout(0.5)
+        
+    def forward(self, x):
+        
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        
+        x = F.relu(self.fc2(x))
+        x = self.dropout(x)
+        
+        output = self.fc3(x)
+        
+        return output
+    
+    def loss(self, predictions, targets):
+        criterion = nn.MSELoss()
+        loss = criterion(predictions, targets)
+        return loss
