@@ -1,0 +1,34 @@
+Model reference date and time: 2024-11-04-at-20-02-28
+
+Start date: 2024-11-04
+Start time: 20:02
+Total time: 00:01:11
+
+Task: Classification
+Cell line: E122
+Dataset split:
+Training set: 70%
+Validation set: 15%
+Testing set: 15%
+
+Performance:
+Test AUROC: 0.8977991291116912
+Test AUPR: 0.856836237588751
+
+Hyperparameters:
+Number of epochs: 1000
+Learning rate :0.001
+Number of graph convolutional layers: 2
+Graph convolutional layer size: 256
+Number of linear layers: 2
+Linear hidden layer size: 100
+
+Model's state_dict:
+conv1.lin_l.weight	torch.Size([256, 12])
+conv1.lin_l.bias	torch.Size([256])
+conv2.lin_l.weight	torch.Size([100, 512])
+conv2.lin_l.bias	torch.Size([100])
+lin1.weight	torch.Size([100, 100])
+lin1.bias	torch.Size([100])
+lin2.weight	torch.Size([2, 100])
+lin2.bias	torch.Size([2])

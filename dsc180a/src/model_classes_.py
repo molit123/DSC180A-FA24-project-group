@@ -286,6 +286,7 @@ class GCN_classification(nn.Module):
         
         return softmax, predicted
 
+    
 class MLP_Classification(nn.Module):
     def __init__(self, input_size, hidden_sizes, num_classes):
         super(MLP_Classification, self).__init__()
@@ -312,6 +313,7 @@ class MLP_Classification(nn.Module):
         criterion = nn.CrossEntropyLoss()
         loss = criterion(predictions, labels)
         return loss
+    
     
     def calc_softmax_pred(self, scores):
         '''
