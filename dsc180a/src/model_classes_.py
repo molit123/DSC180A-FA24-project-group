@@ -295,6 +295,7 @@ class MLP_Classification(nn.Module):
         self.fc3 = nn.Linear(hidden_sizes[1], num_classes)
         
         self.dropout = nn.Dropout(0.5)
+        self.torch_softmax = nn.Softmax(dim=1)
         
     def forward(self, x):
         x = F.relu(self.fc1(x))
@@ -311,6 +312,27 @@ class MLP_Classification(nn.Module):
         criterion = nn.CrossEntropyLoss()
         loss = criterion(predictions, labels)
         return loss
+    
+    def calc_softmax_pred(self, scores):
+        '''
+        Calculates softmax scores and predicted classes
+
+        Parameters
+        ----------
+        scores [tensor]: Pre-normalized class scores
+
+        Returns
+        -------
+        softmax [tensor]: Probability for each class
+        predicted [tensor]: Predicted class
+
+        '''
+        
+        softmax = self.torch_softmax(scores)
+        
+        predicted = torch.argmax(softmax, 1)
+        
+        return softmax, predicted
     
 class MLP_Regression(nn.Module):
     def __init__(self, input_size, hidden_sizes, output_size=1):

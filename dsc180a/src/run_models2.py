@@ -607,7 +607,7 @@ if regression_flag == 0:
         elif d == 2:
             partial_metrics['Dataset'] = 'Testing'
     
-        df_full_metrics = df_full_metrics.append(partial_metrics)
+        df_full_metrics = pd.concat([df_full_metrics, partial_metrics], ignore_index=True)
     
     df_gene_names = df_genes.iloc[:,:3]
     df_gene_names = df_gene_names.rename(columns={"gene_catalog_name": "ENSEMBL_ID", "abbrev": "Abbreviation",
@@ -683,7 +683,7 @@ elif regression_flag == 1:
 model_path = os.path.join(save_dir, 'model_' + date_and_time + '.pt')
 torch.save(model.state_dict(), model_path)
 
-df_full_metrics_filename = os.path.join(save_dir, 'model_predictions_' + date_and_time + '.csv')
+df_full_metrics_filename = os.path.join(save_dir, 'model_predictions_MLP_' + date_and_time + '.csv')
 df_full_metrics.to_csv(df_full_metrics_filename, index=False)
 
 model_info_filename = os.path.join(save_dir,'model_' + date_and_time + '_info.txt')
