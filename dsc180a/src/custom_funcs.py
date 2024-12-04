@@ -583,8 +583,7 @@ def experiment(cell_line, regression_flag, model, max_epoch=50, learning_rate=0.
     
     elif regression_flag == 1:
         print('Test pearson:', test_pearson, '\n')
-        return test_metrics if name == 'GCN' else test_pearson
-    
+        return test_pearson # if name == 'MLP' else test_metrics
 
 def experiment_n(cell_line, num_runs, model_c, model_r, name, max_epoch=50, learning_rate=1e-3):
     """
@@ -619,14 +618,15 @@ def experiment_n(cell_line, num_runs, model_c, model_r, name, max_epoch=50, lear
     for i in range(num_runs):
         print(f"Iteration {i+1}:")
         if name == 'GCN':
-            _, test_pred, test_labels, pearson, _ = experiment(cell_line=cell_line, regression_flag=1, max_epoch=max_epoch+25, learning_rate=learning_rate, model=model_r, name=name)
-            if not test_pred_avg:
-                test_pred_avg = np.array(test_pred) / len(test_pred)
-            else:
-                test_pred_avg += (test_pred / len(test_pred))
+            pearson = experiment(cell_line=cell_line, regression_flag=1, max_epoch=max_epoch+25, learning_rate=learning_rate, model=model_r, name=name)
+            # _, test_pred, test_labels, pearson, _ = experiment(cell_line=cell_line, regression_flag=1, max_epoch=max_epoch+25, learning_rate=learning_rate, model=model_r, name=name)
+            # if not test_pred_avg:
+            #     test_pred_avg = np.array(test_pred) / len(test_pred)
+            # else:
+            #     test_pred_avg += (test_pred / len(test_pred))
             
-            if not test_labels_avg:
-                test_labels_avg = np.array(test_labels)
+            # if not test_labels_avg:
+            #     test_labels_avg = np.array(test_labels)
 
         else:
             pearson = experiment(cell_line=cell_line, regression_flag=1, max_epoch=max_epoch+25, learning_rate=learning_rate, model=model_r, name=name)
