@@ -362,3 +362,24 @@ class MLP_Regression(nn.Module):
         criterion = nn.MSELoss()
         loss = criterion(predictions, targets)
         return loss
+
+class CNN(nn.Module):
+    def __init__(self, regression_flag=0):
+        super(CNN, self).__init__()
+
+        INPUT_LENGTH = 6
+        NUM_CLASSES = 2 if not regression_flag else 1
+        
+        self.conv1 = nn.Conv1d(in_channels=1, out_channels=16, kernel_size=3, padding=1)
+        
+        self.fc1 = nn.Linear(16 * INPUT_LENGTH, 32)
+        self.fc2 = nn.Linear(32, NUM_CLASSES)
+        
+        self.relu = nn.ReLU()
+        
+    def forward(self, x):
+            x = self.relu(self.conv1(x))
+            x = x.view(x.size(0), -1)         
+            x = self.relu(self.fc1(x))
+            x = self.fc2(x)  
+            return x
