@@ -42,7 +42,7 @@ def train_model_classification(model, graph, max_epoch, learning_rate, targetNod
 
     '''
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() and name == 'MLP' else "cpu")
 
     model = model.to(device)
     graph = graph.to(device)
@@ -134,7 +134,7 @@ def train_model_regression(model, graph, max_epoch, learning_rate, targetNode_ma
         analogous for valid_pearson_vec (validation set)
     '''
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() and name == 'MLP' else "cpu")
 
     model = model.to(device)
     graph = graph.to(device)
@@ -226,7 +226,7 @@ def eval_model_classification(model, graph, targetNode_mask, train_idx, valid_id
         analagous for train_labels (training set) and valid_labels (validation set)
     '''
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() and name == 'MLP' else "cpu")
 
     model = model.to(device)
     graph = graph.to(device)
@@ -296,7 +296,7 @@ def eval_model_regression(model, graph, targetNode_mask, train_idx, valid_idx, t
 
     '''
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() and name == 'MLP' else "cpu")
 
     model = model.to(device)
     graph = graph.to(device)
